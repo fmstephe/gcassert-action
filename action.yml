@@ -1,0 +1,19 @@
+name: "gcassert"
+description: "Run gcassert on your Go code"
+author: "Francis Stephens"
+branding:
+  icon:"alert-triangle"
+  color:"blue"
+inputs:
+  version:
+    description: "The version of gcassert to use."
+    required: true
+    default: "latest"
+runs:
+  using: "composite"
+  steps:
+    - env:
+        version: ${{ inputs.version }}
+      run: |
+        go install "github.com/jordanlewis/gcassert/cmd/gcassert@${version}"
+        $(go env GOPATH)/bin/gcassert
