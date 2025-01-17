@@ -5,15 +5,15 @@ branding:
   icon:"alert-triangle"
   color:"blue"
 inputs:
-  version:
-    description: "The version of gcassert to use."
-    required: true
-    default: "latest"
+outputs:
 runs:
   using: "composite"
   steps:
-    - env:
+    - name: "Run gcassert"
+      id: run-gcassert
+      env:
         version: ${{ inputs.version }}
       run: |
-        go install "github.com/jordanlewis/gcassert/cmd/gcassert@${version}"
+        go install github.com/jordanlewis/gcassert/cmd/gcassert@latest
         $(go env GOPATH)/bin/gcassert
+      shell: bash
